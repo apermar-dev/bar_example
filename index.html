@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bar El Chiquito — Carta</title>
+  <title>Bar El Rincón — Carta</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
@@ -120,6 +120,47 @@
       color: var(--sand); font-weight: 700;
       font-size: .9rem; letter-spacing: .12em; text-transform: uppercase;
     }
+
+    /* ─────────────────────── STICKY CATEGORY TABS ─────────────────────── */
+    .cat-tabs {
+      position: fixed; top: var(--nav-h); left: 0; right: 0;
+      height: 46px;
+      background: rgba(42,26,14,.97);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+      gap: clamp(.4rem, 2vw, 1rem);
+      padding: 0 1rem;
+      z-index: 98;
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: transform .35s ease, opacity .35s ease;
+      border-bottom: 1px solid rgba(200,130,42,.2);
+    }
+    .cat-tabs.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .cat-tab {
+      color: var(--sand);
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: .3rem .9rem;
+      border-radius: 100px;
+      border: 1.5px solid transparent;
+      transition: all .22s;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .cat-tab:hover { color: var(--amber); border-color: rgba(200,130,42,.4); }
+    .cat-tab.active {
+      background: var(--amber);
+      color: var(--white);
+      border-color: var(--amber);
+    }
+
+    /* When cat-tabs are visible, sections need extra offset */
+    body.tabs-visible .section { scroll-margin-top: calc(var(--nav-h) + 46px + 8px); }
+    body:not(.tabs-visible) .section { scroll-margin-top: calc(var(--nav-h) + 8px); }
 
     /* ─────────────────────── HERO ─────────────────────── */
     .hero {
@@ -318,6 +359,13 @@
       color: var(--amber);
       white-space: nowrap;
     }
+    .drink-desc {
+      font-size: .78rem;
+      color: var(--mid);
+      font-weight: 300;
+      margin-top: .2rem;
+      line-height: 1.4;
+    }
 
     /* ─────────────────────── FOOTER ─────────────────────── */
     footer {
@@ -374,7 +422,7 @@
 
   <!-- ══════════════ NAVBAR ══════════════ -->
   <nav id="navbar">
-    <div class="nav-logo">Bar <span>El Chiquito</span></div>
+    <div class="nav-logo">Bar <span>El Rincón</span></div>
     <ul class="nav-links">
       <li><a href="#entrantes">Entrantes</a></li>
       <li><a href="#comidas">Comidas</a></li>
@@ -396,10 +444,18 @@
     </ul>
   </div>
 
+  <!-- Sticky category tabs (appear after hero) -->
+  <div class="cat-tabs" id="catTabs">
+    <a href="#entrantes" class="cat-tab" data-section="entrantes">🥗 Entrantes</a>
+    <a href="#comidas"   class="cat-tab" data-section="comidas">🍔 Comidas</a>
+    <a href="#bebidas"   class="cat-tab" data-section="bebidas">🍺 Bebidas</a>
+    <a href="#postres"   class="cat-tab" data-section="postres">🍮 Postres</a>
+  </div>
+
   <!-- ══════════════ HERO ══════════════ -->
   <header class="hero" style="position:relative;">
     <span class="hero-badge">📍 Carta del día</span>
-    <h1>Bar <em>El Chiquito</em></h1>
+    <h1>Bar <em>El Rincón</em></h1>
     <p>Sabores de siempre, elaborados con cariño y productos frescos de temporada.</p>
     <div class="hero-cta">
       <a href="#entrantes" class="btn btn-primary">Ver la carta</a>
@@ -442,6 +498,27 @@
           </div>
           <p class="card-desc">Croquetas de jamón ibérico elaboradas diariamente, con bechamel cremosa.</p>
         </div>
+        <div class="card reveal reveal-delay-1">
+          <div class="card-top">
+            <span class="card-name">Pimientos del padrón</span>
+            <span class="card-price">5,50 €</span>
+          </div>
+          <p class="card-desc">Pimientos fritos en aceite de oliva virgen extra con sal gruesa. Unos pican y otros no.</p>
+        </div>
+        <div class="card reveal reveal-delay-2">
+          <div class="card-top">
+            <span class="card-name">Tabla de embutidos</span>
+            <span class="card-price">9 €</span>
+          </div>
+          <p class="card-desc">Selección de chorizo, salchichón y jamón serrano con pan tostado y tomate.</p>
+        </div>
+        <div class="card reveal reveal-delay-3">
+          <div class="card-top">
+            <span class="card-name">Gambas al ajillo</span>
+            <span class="card-price">8,50 €</span>
+          </div>
+          <p class="card-desc">Gambas salteadas en aceite de oliva con ajo laminado y guindilla, servidas en cazuela.</p>
+        </div>
       </div>
     </section>
 
@@ -474,6 +551,27 @@
           </div>
           <p class="card-desc">Lechuga, tomate, atún, huevo cocido y aceitunas. Aliño al gusto.</p>
         </div>
+        <div class="card reveal reveal-delay-1">
+          <div class="card-top">
+            <span class="card-name">Plato de huevos rotos</span>
+            <span class="card-price">9 €</span>
+          </div>
+          <p class="card-desc">Patatas fritas con huevos estrellados y jamón serrano. Contundente y delicioso.</p>
+        </div>
+        <div class="card reveal reveal-delay-2">
+          <div class="card-top">
+            <span class="card-name">Pollo a la plancha</span>
+            <span class="card-price">9,50 €</span>
+          </div>
+          <p class="card-desc">Pechuga de pollo a la plancha con guarnición de verduras asadas y patatas.</p>
+        </div>
+        <div class="card reveal reveal-delay-3">
+          <div class="card-top">
+            <span class="card-name">Montadito de lomo</span>
+            <span class="card-price">4,50 €</span>
+          </div>
+          <p class="card-desc">Lomo de cerdo a la plancha con pimientos asados sobre pan de cristal tostado.</p>
+        </div>
       </div>
     </section>
 
@@ -486,20 +584,60 @@
       </div>
       <div class="drinks-grid">
         <div class="drink-item reveal reveal-delay-1">
-          <span class="drink-name">🍺 Cerveza</span>
+          <div>
+            <div class="drink-name">🍺 Cerveza</div>
+            <div class="drink-desc">Caña fría de barril, nacional</div>
+          </div>
           <span class="drink-price">2,50 €</span>
         </div>
         <div class="drink-item reveal reveal-delay-2">
-          <span class="drink-name">🥤 Refresco</span>
+          <div>
+            <div class="drink-name">🥤 Refresco</div>
+            <div class="drink-desc">Cola, naranja, limón o sin azúcar</div>
+          </div>
           <span class="drink-price">2,00 €</span>
         </div>
         <div class="drink-item reveal reveal-delay-1">
-          <span class="drink-name">💧 Agua</span>
+          <div>
+            <div class="drink-name">💧 Agua</div>
+            <div class="drink-desc">Botella 50cl, con o sin gas</div>
+          </div>
           <span class="drink-price">1,50 €</span>
         </div>
         <div class="drink-item reveal reveal-delay-2">
-          <span class="drink-name">🍷 Vino de la casa</span>
+          <div>
+            <div class="drink-name">🍷 Vino de la casa</div>
+            <div class="drink-desc">Tinto, blanco o rosado — copa</div>
+          </div>
           <span class="drink-price">3,00 €</span>
+        </div>
+        <div class="drink-item reveal reveal-delay-1">
+          <div>
+            <div class="drink-name">🍊 Zumo natural</div>
+            <div class="drink-desc">Naranja exprimida al momento</div>
+          </div>
+          <span class="drink-price">2,50 €</span>
+        </div>
+        <div class="drink-item reveal reveal-delay-2">
+          <div>
+            <div class="drink-name">☕ Café</div>
+            <div class="drink-desc">Solo, cortado o con leche</div>
+          </div>
+          <span class="drink-price">1,50 €</span>
+        </div>
+        <div class="drink-item reveal reveal-delay-1">
+          <div>
+            <div class="drink-name">🍺 Clara</div>
+            <div class="drink-desc">Cerveza con limón o con casera</div>
+          </div>
+          <span class="drink-price">2,50 €</span>
+        </div>
+        <div class="drink-item reveal reveal-delay-2">
+          <div>
+            <div class="drink-name">🫙 Vermut</div>
+            <div class="drink-desc">Servido con aceitunas y naranja</div>
+          </div>
+          <span class="drink-price">3,50 €</span>
         </div>
       </div>
     </section>
@@ -533,6 +671,27 @@
           </div>
           <p class="card-desc">Flan de huevo tradicional con caramelo tostado, elaborado cada mañana.</p>
         </div>
+        <div class="card reveal reveal-delay-1">
+          <div class="card-top">
+            <span class="card-name">Churros con chocolate</span>
+            <span class="card-price">4,50 €</span>
+          </div>
+          <p class="card-desc">Churros recién fritos acompañados de una taza de chocolate espeso para mojar.</p>
+        </div>
+        <div class="card reveal reveal-delay-2">
+          <div class="card-top">
+            <span class="card-name">Arroz con leche</span>
+            <span class="card-price">3,50 €</span>
+          </div>
+          <p class="card-desc">Receta tradicional asturiana con canela y limón, servido templado o frío al gusto.</p>
+        </div>
+        <div class="card reveal reveal-delay-3">
+          <div class="card-top">
+            <span class="card-name">Coulant de chocolate</span>
+            <span class="card-price">5,50 €</span>
+          </div>
+          <p class="card-desc">Bizcocho tibio con corazón de chocolate fundido, acompañado de helado de nata.</p>
+        </div>
       </div>
     </section>
 
@@ -540,7 +699,7 @@
 
   <!-- ══════════════ FOOTER ══════════════ -->
   <footer>
-    <div class="foot-logo">Bar El Chiquito</div>
+    <div class="foot-logo">Bar El Rincón</div>
     <p>Calle Mayor, 12 · Abierto de 10:00 a 24:00</p>
     <p>📞 955 123 456</p>
     <div class="foot-links">
@@ -549,16 +708,53 @@
       <a href="#bebidas">Bebidas</a>
       <a href="#postres">Postres</a>
     </div>
-    <p style="margin-top:1.6rem">© 2025 Bar El Chiquito · Hecho con ❤️</p>
+    <p style="margin-top:1.6rem">© 2025 Bar El Rincón · Hecho con ❤️</p>
   </footer>
 
   <!-- ══════════════ JAVASCRIPT ══════════════ -->
   <script>
-    /* ── Navbar: shadow on scroll ── */
+    /* ── Constants ── */
+    const NAV_H    = 64;   // matches --nav-h
+    const TABS_H   = 46;   // matches .cat-tabs height
+    const HERO_END = () => document.querySelector('.hero').offsetHeight;
+
+    /* ── Navbar: blur on scroll ── */
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 20);
-    }, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    /* ── Sticky category tabs ── */
+    const catTabs = document.getElementById('catTabs');
+    const tabLinks = catTabs.querySelectorAll('.cat-tab');
+    const sections = ['entrantes','comidas','bebidas','postres'].map(id => document.getElementById(id));
+
+    function getScrollOffset() {
+      /* When tabs are visible we need to clear both bars */
+      return catTabs.classList.contains('visible') ? NAV_H + TABS_H + 8 : NAV_H + 8;
+    }
+
+    function onScroll() {
+      const y = window.scrollY;
+
+      /* Navbar glass effect */
+      navbar.classList.toggle('scrolled', y > 20);
+
+      /* Show / hide category tabs after hero */
+      const heroBottom = HERO_END();
+      const tabsVisible = y > heroBottom - NAV_H - 20;
+      catTabs.classList.toggle('visible', tabsVisible);
+      document.body.classList.toggle('tabs-visible', tabsVisible);
+
+      /* Active tab highlight based on current section in view */
+      let current = '';
+      sections.forEach(sec => {
+        if (!sec) return;
+        const top = sec.getBoundingClientRect().top;
+        if (top <= NAV_H + TABS_H + 40) current = sec.id;
+      });
+      tabLinks.forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.section === current);
+      });
+    }
 
     /* ── Hamburger menu ── */
     const hamburger = document.getElementById('hamburger');
@@ -574,14 +770,22 @@
       });
     });
 
-    /* ── Smooth scroll for all anchor links ── */
+    /* ── Smooth scroll — respects whichever bars are visible ── */
+    function smoothScrollTo(targetId) {
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      const offset = getScrollOffset();
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', e => {
-        const target = document.querySelector(anchor.getAttribute('href'));
-        if (!target) return;
+        const href = anchor.getAttribute('href');
+        if (!href || href === '#') return;
         e.preventDefault();
-        const offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 64;
-        window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+        const id = href.replace('#', '');
+        smoothScrollTo(id);
       });
     });
 
@@ -595,6 +799,9 @@
       });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* Run once on load to set initial state */
+    onScroll();
   </script>
 </body>
 </html>
